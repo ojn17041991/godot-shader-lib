@@ -1,10 +1,13 @@
 shader_type canvas_item;
 
-uniform float step_rate: hint_range(0.0, 10.0) = 4.0;
-uniform float distortion_strength: hint_range(1.0, 10.0) = 3.0;
+uniform bool enabled = false;
+uniform float stepRate: hint_range(0.0, 10.0) = 4.0;
+uniform float distortionStrength: hint_range(1.0, 10.0) = 3.0;
 
 void vertex() {
-	float steps = floor(fract(TIME) * step_rate) / step_rate;
-	VERTEX.x += cos((steps * 20.0) + VERTEX.x + VERTEX.y) * distortion_strength;
-	VERTEX.y += cos((steps * 20.0) + VERTEX.x + VERTEX.y) * distortion_strength;
+	if (enabled) {
+		float steps = floor(fract(TIME) * stepRate) / stepRate;
+		VERTEX.x += cos(steps * 20.0 + VERTEX.x + VERTEX.y) * distortionStrength;
+		VERTEX.y += cos(steps * 20.0 + VERTEX.x + VERTEX.y) * distortionStrength;
+	}
 }

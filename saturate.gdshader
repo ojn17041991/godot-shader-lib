@@ -1,8 +1,7 @@
 shader_type canvas_item;
-render_mode unshaded;
 
 uniform bool enabled = false;
-uniform float saturation = 0.0;
+uniform float saturation: hint_range(0.1, 1.0) = 0.1;
 
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -21,8 +20,6 @@ vec3 hsv2rgb(vec3 c) {
 }
 
 void fragment() {
-	
-	COLOR = texture(TEXTURE, UV);
 	if (enabled) {
 		vec3 hsv = rgb2hsv(COLOR.rgb);
 		if (hsv.y > 0.0) {
@@ -30,6 +27,4 @@ void fragment() {
 		}
 		COLOR.rgb = hsv2rgb(hsv);
 	}
-	
 }
-
